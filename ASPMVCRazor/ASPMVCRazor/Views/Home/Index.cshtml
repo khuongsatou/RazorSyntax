@@ -1,0 +1,194 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@*@model IEnumerable<ASPMVCRazor.Models.Student>*@
+
+
+
+@*
+    Các cú pháp cơ bản Ranzor
+*@
+
+<h1>Razor Syn demo</h1>
+
+<h2>@DateTime.Now.ToLongDateString()</h2>
+
+@*
+    Code nhiều dòng
+*@
+
+@{
+    //var date = DateTime.Now.ToShortDateString();
+    //var message = "Hello World";
+}
+
+@*  
+    Gọi Ra
+*@
+@*<h2>Today's date is: @date</h2>
+<h3>@message</h3>*@
+
+
+@*
+    Hiển thị thêm text trong nhiều dòng Razor
+*@
+
+@{
+    @*var date = DateTime.Now.ToShortDateString();
+    string message = "Hello World!";
+    // Comment , Hiển thị text xuất ra ở đây
+    @: Today's date is: @date <br />
+    @message*@
+}
+
+@*  
+    Câu Điều Kiện
+*@
+
+@{
+    // Kiểm tra năm đó có nhuận hay không
+    
+    @*if (DateTime.IsLeapYear(DateTime.Now.Year))
+    {
+        //đây là biến xuất năm đó ra phía sau là text
+        @DateTime.Now.Year @: is a leap year
+    }
+    else
+    {
+        //Đây là nối chuỗi trong C#
+        @Html.Label("Năm " + DateTime.Now.Year)
+        @: is not a leap year
+    }*@
+}
+
+@*  
+    //Vòng Lặp
+*@
+
+@*@for (int i = 0; i < 5; i++)
+{
+    @i.ToString() <br/>
+}*@
+
+
+@*  
+    Dùng Mode trong Razor
+    OK đã tạo xong model student List
+    using model
+*@
+@*
+    Thêm thư viện vào
+    1 model chỉ được include trong 1 file cshtml
+    mà tại sao nhiều thì không được >>>???
+*@
+
+@*@using ASPMVCRazor.Models
+@model Student
+
+<h2>Student Detail:</h2>
+<ul>
+    <li>Student ID: @Model.StudentId</li>
+    <li>Student Name: @Model.StudentName</li>
+    <li>Student Age: @Model.Age</li>
+</ul>*@
+
+
+@*@{
+    string str = "";
+
+    if (1> 0 )
+    {
+        str = "Hello World!";
+        @: đây là text
+    }
+}
+
+<p>@str</p>*@
+
+@* 
+    
+    Gọi các HTML control support 
+*@
+
+@using ASPMVCRazor.Models
+@model Student
+
+    
+
+
+@Html.TextArea("StudentName", null, new { @class = "form-control" })
+
+
+@Html.TextAreaFor(m=>m.StudentName, new { @class = "form-control" })
+
+@*
+    tên , giá trị 
+*@
+
+@Html.CheckBox("isNewlyEnrolled", true)
+
+@Html.CheckBoxFor(m=>m.isNewlyEnrolled)
+
+@*
+    RadioButton
+*@
+@*
+    Tên thuộc tính model , giá trị truyền vào
+*@
+@*@Html.RadioButton("Gender","Male")
+@Html.RadioButton("Gender", "Female")
+
+@Html.RadioButtonFor(m=>m.Gender,"Male")
+@Html.RadioButtonFor(m => m.Gender,"Female")*@
+
+
+@Html.DropDownList("StudentGender", new SelectList(Enum.GetValues(typeof(ASPMVCRazor.Models.Student.Gender))), "Select Gender", new { @class="form-control"})
+
+
+@Html.DropDownListFor(m=>m.StudentGender, new SelectList(Enum.GetValues(typeof(ASPMVCRazor.Models.Student.Gender))), "Select Gender", new { @class = "form-control" })
+
+
+
+@Html.Hidden("StudentId")
+@Html.HiddenFor(m=>m.StudentId)
+
+
+@Html.Display("StudentName")
+@Html.Password("Password")
+@Html.DisplayFor(m=>m.StudentName)
+@Html.PasswordFor(m=>m.Password)
+
+@Html.Label("StudentName")@*  Display nó hiển thị ở đây *@
+@Html.Label("StudentName","Student-Name")
+@Html.LabelFor(m=>m.StudentName,"Tên Khác")
+
+
+@*  
+    Phần cuối cùng Razor
+
+*@
+
+@*  
+        Hiển thị form theo kiểu dữ liệu của nó phù hợp
+*@
+
+StudentId:    @Html.Editor("StudentId") <br />
+Student Name: @Html.Editor("StudentName")<br />
+Age:          @Html.Editor("Age")<br />
+Password:     @Html.Editor("Password")<br />
+isNewlyEnrolled: @Html.Editor("isNewlyEnrolled")<br />
+Gender:       @Html.Editor("Gender")<br />
+DoB:          @Html.Editor("DoB")<br />
+
+@*  
+    For
+*@
+
+StudentId: @Html.EditorFor(m => m.StudentId)
+Student Name: @Html.EditorFor(m => m.StudentName)
+Age: @Html.EditorFor(m => m.Age)
+Password: @Html.EditorFor(m => m.Password)
+isNewlyEnrolled: @Html.EditorFor(m => m.isNewlyEnrolled)
+Gender: @Html.EditorFor(m => m.StudentGender)
+DoB: @Html.EditorFor(m => m.DoB)
